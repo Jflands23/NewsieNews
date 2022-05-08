@@ -10,6 +10,7 @@ import { createFeed as createFeedMutation, deleteFeed as deleteFeedMutation } fr
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
+
 const initialFormState = { name: '', description: '' }
 
 
