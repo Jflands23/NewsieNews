@@ -7,3 +7,4 @@ type Feed @model {
   name: String!
   description: String
 }
+
