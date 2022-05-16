@@ -1,67 +1,66 @@
 *{
     padding:0;
-    margin:0 auto;
+    margin:0;
     box-sizing: border-box;
     background-color:blanchedalmond;
 }
 
 
 
+.head li, a, button {
+    font-family: "Monserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;    
+    text-decoration: none;    
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-header {
-    clear: left;
+.head {
     display:flex;
-    width: 100%;
-    background: rgb(17, 146, 118);
+    justify-content: flex-end;
     align-items: center;
-    padding: 4px 0;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-.foot {
-    background: rgb(17, 146, 118);
-    height: 100px;
-    line-height: 50px;
-    margin-bottom: 10px;    
-    padding-top: 20px; 
+    padding:20px;
+    background-color: black;
 }
 
-
-
-.foot ul{
-    width: 1000px;
-    display:block;
-    margin:0 auto;
-    background: rgb(17, 146, 118);
+.navlink {
+    list-style:none;
+    background-color:black;
+    justify-content:flex-end;
 }
 
-.foot li{
-    
+.navlink li {
     display:inline-block;
-    list-style-type: none;
-    width:25%;
-    background: rgb(17, 146, 118);
-    font-size:20px;
+    padding: 0px 20px;
+    background-color:black;
+}
+
+.navlink li a {
+    transition: all 0.3s ease 0s;
+    background-color:black;
+    color:blanchedalmond;
+}
+
+.navlink li a:hover {
+    color: rgba(0, 136, 169, 1);
+}
+
+.contact { 
+    padding: 9px 25px;
+    background-color: rgba(0, 136, 169, 1);
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.contact:hover {
+    background-color: rgba(0, 136, 169, 0.8)
 }
 
 .logo {
-    background: rgb(17, 146, 118);
-
+    background: black;
+    cursor: pointer;
+    margin-right:auto;
 }
 
 .feedCard {
@@ -73,9 +72,20 @@ header {
 .feedList {
     display:flex;
     flex-direction: column;
-    
+    float:left;
 }
 
 .feedTitle {
     font-weight: bold;
+}
+
+.innertube {
+    float:left;
+    width: 340px;
+    background: #2175fc;
+    padding: 10px;    
+    margin-top:5px;
+    margin-left:5px;
+    height: 1000px;
+    
 }

@@ -70,8 +70,8 @@ function App({signOut, user}) {
       </div>
       <button onClick={signOut}>Sign out</button>>
     </div>*/
-    <div><span><Header /></span>
-      <div><Main /></div>
+    <div><Header />
+    <div><Main /></div>
 
 
       </div>

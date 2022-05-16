@@ -23,25 +23,31 @@ const Main = () => {
     };
     
     return (
-    <div className = "feedList">
-        { feeds.map(feed => {
-            return (
-                <Paper  variant="outlined" elevation={2}>
-                    <div className = "feedCard">
-                    <IconButton aria-label="COCKA">
+    <div className = "BigDiv">
+        <div className = "feedList">
+            { feeds.map(feed => {
+                return (
+                    <Paper  variant="outlined" elevation={2}>
+                        <div className = "feedCard">
+                        <IconButton aria-label="COCKA">
                         
-                    </IconButton>
-                    <div>
-                        <div className="feedTitle">{feed.name}</div>
-                        <div className="feedDesc">{feed.description}</div>
-                    </div>
-                    </div>              
+                        </IconButton>
+                        <div>
+                            <div className="feedTitle">{feed.name}</div>
+                            <div className="feedDesc">{feed.description}</div>
+                        </div>
+                        </div>              
 
-                </Paper>
-            )
-        })}
+                    </Paper>
+                )
+            })}
+        </div>
+        <div>
+            <aside className = "innertube">
+                <h3>Left Column</h3>
+            </aside>
+        </div>
     </div>
-     
     )
 }
 
