@@ -10,6 +10,17 @@ export const createFeed = /* GraphQL */ `
       id
       name
       description
+      articles {
+        items {
+          id
+          name
+          description
+          url
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -24,6 +35,17 @@ export const updateFeed = /* GraphQL */ `
       id
       name
       description
+      articles {
+        items {
+          id
+          name
+          description
+          url
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -38,6 +60,62 @@ export const deleteFeed = /* GraphQL */ `
       id
       name
       description
+      articles {
+        items {
+          id
+          name
+          description
+          url
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createArticle = /* GraphQL */ `
+  mutation CreateArticle(
+    $input: CreateArticleInput!
+    $condition: ModelArticleConditionInput
+  ) {
+    createArticle(input: $input, condition: $condition) {
+      id
+      name
+      description
+      url
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateArticle = /* GraphQL */ `
+  mutation UpdateArticle(
+    $input: UpdateArticleInput!
+    $condition: ModelArticleConditionInput
+  ) {
+    updateArticle(input: $input, condition: $condition) {
+      id
+      name
+      description
+      url
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteArticle = /* GraphQL */ `
+  mutation DeleteArticle(
+    $input: DeleteArticleInput!
+    $condition: ModelArticleConditionInput
+  ) {
+    deleteArticle(input: $input, condition: $condition) {
+      id
+      name
+      description
+      url
       createdAt
       updatedAt
     }

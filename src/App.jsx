@@ -10,6 +10,7 @@ import { createFeed as createFeedMutation, deleteFeed as deleteFeedMutation } fr
 import awsExports from './aws-exports';
 import Header from './components/Header';
 import Main from './components/Main';
+import Footer from './components/Footer';
 import './components/App.css';
 Amplify.configure(awsExports);
 
@@ -70,11 +71,12 @@ function App({signOut, user}) {
       </div>
       <button onClick={signOut}>Sign out</button>>
     </div>*/
-    <div><Header />
+    <div>
+    <div><Header /></div>
     <div><Main /></div>
-
-
-      </div>
+    <div><Footer /></div>
+    </div>
+      
   );
 }
 

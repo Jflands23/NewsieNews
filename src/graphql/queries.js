@@ -7,6 +7,17 @@ export const getFeed = /* GraphQL */ `
       id
       name
       description
+      articles {
+        items {
+          id
+          name
+          description
+          url
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -23,6 +34,40 @@ export const listFeeds = /* GraphQL */ `
         id
         name
         description
+        articles {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getArticle = /* GraphQL */ `
+  query GetArticle($id: ID!) {
+    getArticle(id: $id) {
+      id
+      name
+      description
+      url
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listArticles = /* GraphQL */ `
+  query ListArticles(
+    $filter: ModelArticleFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        description
+        url
         createdAt
         updatedAt
       }

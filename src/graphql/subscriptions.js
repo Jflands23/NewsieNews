@@ -7,6 +7,17 @@ export const onCreateFeed = /* GraphQL */ `
       id
       name
       description
+      articles {
+        items {
+          id
+          name
+          description
+          url
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -18,6 +29,17 @@ export const onUpdateFeed = /* GraphQL */ `
       id
       name
       description
+      articles {
+        items {
+          id
+          name
+          description
+          url
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -29,6 +51,53 @@ export const onDeleteFeed = /* GraphQL */ `
       id
       name
       description
+      articles {
+        items {
+          id
+          name
+          description
+          url
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateArticle = /* GraphQL */ `
+  subscription OnCreateArticle {
+    onCreateArticle {
+      id
+      name
+      description
+      url
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateArticle = /* GraphQL */ `
+  subscription OnUpdateArticle {
+    onUpdateArticle {
+      id
+      name
+      description
+      url
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteArticle = /* GraphQL */ `
+  subscription OnDeleteArticle {
+    onDeleteArticle {
+      id
+      name
+      description
+      url
       createdAt
       updatedAt
     }

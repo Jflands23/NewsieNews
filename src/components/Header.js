@@ -3,7 +3,7 @@ import './App.css';
 
 const Header = () => {
     return (
-    
+        <div>
         <header className="head">
 			<img class="logo" src="https://www.streamscheme.com/wp-content/uploads/2020/04/pepega.png" width="70" height="75"/>
             <nav>
@@ -18,7 +18,8 @@ const Header = () => {
                 )}
             </Authenticator>
         </header>
-    
+        <div className = "slantbg"></div>
+        </div>
     )
 }
 
