@@ -2,50 +2,63 @@
     padding:0;
     margin:0;
     box-sizing: border-box;
+    font-family:Georgia;
 }
 
 
 
 .head li, a, button {
-    font-family: "Monserrat", sans-serif;
+    
     font-weight: 500;
     font-size: 16px;    
     text-decoration: none;    
 }
 
 .head {
+    position:relative;
     display:flex;
     justify-content: flex-end;
     align-items: center;
     padding:20px;
-    background-color: black;
+    background-color: #000814;
+    height: 75px;
+    z-index: 9;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.6);
 }
+
+.slantbg {
+    position:relative;
+    height: 50px;
+    background-color: #001D3D;
+    z-index: -1;
+}
+
+
 
 .navlink {
     list-style:none;
-    background-color:black;
     justify-content:flex-end;
+    font-family:Georgia;
 }
 
 .navlink li {
     display:inline-block;
     padding: 0px 20px;
-    background-color:black;
+    
 }
 
 .navlink li a {
     transition: all 0.3s ease 0s;
-    background-color:black;
-    color:blanchedalmond;
+    color:#FFC300;
 }
 
 .navlink li a:hover {
-    color: rgba(0, 136, 169, 1);
+    color: #003566;
 }
 
 .contact { 
     padding: 9px 25px;
-    background-color: rgba(0, 136, 169, 1);
+    background-color: #FFC300;
     border:none;
     border-radius:50px;
     cursor:pointer;
@@ -53,11 +66,11 @@
 }
 
 .contact:hover {
-    background-color: rgba(0, 136, 169, 0.8)
+    background-color: #003566;
 }
 
 .logo {
-    background: black;
+    
     cursor: pointer;
     margin-right:auto;
 }
@@ -67,31 +80,50 @@
     justify-content: space-around;
     padding: 5px;
     width:100%;
-    color:black;
-    
+    color:black;    
 }
 
 .feedList {
     display:flex;
     flex-direction: column;
     float:left;
-    width:30%;
+    width:15%;
     
 }
 
 .feedTitle {
     font-weight: bold;
     color:black;
-      
+    font-family:Georgia;      
 }
 
 .innertube {
     float:left;
-    width: 15%;
-    background: #2175fc;
+    width: 20%;
+    background: #001D3D;
+    color:#FFC300;
     padding: 10px;    
     margin-top:5px;
     margin-left:5px;
-    height: 1000px;
-    
+    height: 1100px;
+}
+
+.articleView {
+    width:60%;
+    height: 1100px;
+    margin-top:5px;
+    margin-left:5px;
+}
+
+
+.foot {
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+    padding:20px;
+    background-color: #000814;
+}
+
+.BigDiv {
+    background-color: #003566;
 }
