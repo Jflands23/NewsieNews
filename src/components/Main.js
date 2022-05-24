@@ -1,40 +1,49 @@
 import { API, graphqlOperation } from "aws-amplify"
 import { listFeeds, listArticles } from "../graphql/queries"
-import React, { useState, useEffect } from 'react';
-import { IconButton, Paper,List,ListItem,ListItemText } from "@material-ui/core";
-import { syncClasses } from "@aws-amplify/datastore/lib-esm/datastore/datastore";
-import { CallMissedSharp } from "@material-ui/icons";
-import {makeStyles} from "@material-ui/core"
+import { useState, useEffect } from 'react';
+import React from 'react';
+import {Paper,List,ListItem,ListItemText } from "@material-ui/core";
+import {makeStyles} from "@material-ui/styles";
 
 const useStyles = makeStyles({
     active:{
-        background:'#C8C8C8',
-    }
-})
-
-
-
-
+        background:'#001D3D',
+    },
+    feedCard:{
+        background: '#003566',
+        borderColor: '#003566',
+        borderRadius:9,
+        '&:hover':{background:'#001D3D',},
+    },
+    feedPaper:{
+        borderColor: '#FFC300',
+        background: '#003566',
+    },
+});
 
 const Main = () => {
     const [feeds, setFeeds] = useState([]);
+    const [activeArticle, setActiveArticle] = useState([]);
+    const [activeFeed, setActiveFeed] = useState([]);
     const [articles, setArticles] = useState([]);
     const classes = useStyles();
 
-let activeFeed;
-let activeArticle;
+let iframeSrc;
 
-    function feedClick(feed){
-        activeFeed = feed;
-        console.log("click feed "+ feed)
-    }
-    
-    function articleClick(article){
-        activeArticle = article;
+function feedClick(feed){
+        setActiveFeed(feed.name);
+        console.log("click feed "+ feed);
+}
+
+function articleClick(article){
+        setActiveArticle(article.name);
+        iframeSrc = article.description;
+        document.getElementById('mainframe').src=article.description
         console.log("click article "+ article)
-    }
+        console.log("click iframe " + iframeSrc)
+}
 
-useEffect(() => {
+    useEffect(() => {
         fetchFeeds()
     }, []);
 
@@ -44,6 +53,7 @@ useEffect(() => {
             const feedList = feedData.data.listFeeds.items;
             console.log('feed list', feedList);
             setFeeds(feedList);
+            setActiveFeed(feedList[0].name)
         } catch (error) {
             console.log('error on fetching feeds', error);
         }
@@ -59,6 +69,9 @@ useEffect(() => {
             const articleList = articleData.data.listArticles.items;
             console.log('article list', articleList);
             setArticles(articleList);
+            setActiveArticle(articleList[0].name)
+            document.getElementById('mainframe').src=articleList[0].description;
+            console.log("set initial iframe " + articleList[0].description);
         } catch (error) {
             console.log('error on fetching articles', error);
         }
@@ -69,12 +82,12 @@ useEffect(() => {
         <List className = "feedList">
             { feeds.map(feed => {
                 return (
-                    <Paper  variant="outlined" elevation={2}>
+                    <Paper variant = 'outlined' elevation={0}
+                    className = {classes.feedPaper}>
                         <ListItem
                          button
-                         onClick={() => feedClick(feed.name)}
-                         className = {feed.name == activeFeed ? classes.active:null}  
-                         key = {feed.id}
+                         onClick={() => feedClick(feed)}
+                         className = {feed.name === activeFeed ? classes.active:classes.feedCard}                           key = {feed.id}
                         >
                         <ListItemText
                              className="feedTitle"
@@ -89,15 +102,16 @@ useEffect(() => {
         <List className = "innertube">
             { articles.map(article => {
                 return (
-                    <Paper  variant="outlined" elevation={2}>
+                    <Paper  variant="outlined" elevation={2}
+                    className = {classes.feedPaper}>
                         <ListItem
                          button
-                         onClick={() => articleClick(article.name)}
-                         className = {article.name == activeArticle ? classes.active:null}  
+                         onClick={() => articleClick(article)}
+                         className = {article.name === activeArticle ? classes.active:classes.feedCard} 
                          key = {article.id}
                         >
                         <ListItemText
-                             className="articleTitle"
+                             className="feedTitle"
                              primary={article.name} />
                         </ListItem>
                     </Paper>
@@ -105,7 +119,7 @@ useEffect(() => {
             })}
         </List>
         </div>
-        <iframe className = "articleView" src="https://app.usepanda.com/#/"></iframe>
+        <iframe id = 'mainframe' className = "articleView" src={iframeSrc}></iframe>
     </div>
     )
 }
