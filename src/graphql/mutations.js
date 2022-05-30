@@ -16,6 +16,9 @@ export const createFeed = /* GraphQL */ `
           name
           description
           url
+          pubDate
+          keyWords
+          feedID
           createdAt
           updatedAt
         }
@@ -41,6 +44,9 @@ export const updateFeed = /* GraphQL */ `
           name
           description
           url
+          pubDate
+          keyWords
+          feedID
           createdAt
           updatedAt
         }
@@ -66,6 +72,9 @@ export const deleteFeed = /* GraphQL */ `
           name
           description
           url
+          pubDate
+          keyWords
+          feedID
           createdAt
           updatedAt
         }
@@ -86,6 +95,19 @@ export const createArticle = /* GraphQL */ `
       name
       description
       url
+      pubDate
+      keyWords
+      feedID
+      feed {
+        id
+        name
+        description
+        articles {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -101,6 +123,19 @@ export const updateArticle = /* GraphQL */ `
       name
       description
       url
+      pubDate
+      keyWords
+      feedID
+      feed {
+        id
+        name
+        description
+        articles {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -116,6 +151,19 @@ export const deleteArticle = /* GraphQL */ `
       name
       description
       url
+      pubDate
+      keyWords
+      feedID
+      feed {
+        id
+        name
+        description
+        articles {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }

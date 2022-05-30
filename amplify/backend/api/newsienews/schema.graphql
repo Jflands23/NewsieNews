@@ -6,7 +6,7 @@ type Feed @model {
   id: ID!
   name: String!
   description: String
-  articles: [Article] @hasMany(fields:["id"])
+  articles: [Article] @hasMany(indexName: "byFeed", fields:["id"])
 }
 
 type Article @model {
@@ -14,5 +14,9 @@ type Article @model {
   name: String!
   description: String
   url: String
+  pubDate: AWSDateTime
+  keyWords: String
+  feedID: ID @index(name: "byFeed", sortKeyFields: ["pubDate"])
+  feed: Feed @belongsTo(fields: ["feedID"])
 }
 

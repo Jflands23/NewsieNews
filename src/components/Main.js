@@ -65,7 +65,7 @@ function articleClick(article){
 
     const fetchArticles = async () => {
         try {
-            const articleData = await API.graphql(graphqlOperation(listArticles));
+            const articleData = await API.graphql(graphqlOperation(listArticles,{filter:{feedID:{eq:"preflick"}}}));
             const articleList = articleData.data.listArticles.items;
             console.log('article list', articleList);
             setArticles(articleList);

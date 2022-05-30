@@ -13,6 +13,9 @@ export const getFeed = /* GraphQL */ `
           name
           description
           url
+          pubDate
+          keyWords
+          feedID
           createdAt
           updatedAt
         }
@@ -51,6 +54,19 @@ export const getArticle = /* GraphQL */ `
       name
       description
       url
+      pubDate
+      keyWords
+      feedID
+      feed {
+        id
+        name
+        description
+        articles {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -68,6 +84,16 @@ export const listArticles = /* GraphQL */ `
         name
         description
         url
+        pubDate
+        keyWords
+        feedID
+        feed {
+          id
+          name
+          description
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
