@@ -18,5 +18,15 @@ type Article @model {
   keyWords: String
   feedID: ID @index(name: "byFeed", sortKeyFields: ["pubDate"])
   feed: Feed @belongsTo(fields: ["feedID"])
+  bookmarks: [Bookmark] @hasMany(indexName: "byArticle", fields:["id"])
 }
+
+type Bookmark @model {
+  id: ID!
+  userID: ID @index(name: "byUser")
+  articleID: ID @index(name: "byArticle")
+  article: Article @belongsTo(fields: ["articleID"])
+}
+
+
 

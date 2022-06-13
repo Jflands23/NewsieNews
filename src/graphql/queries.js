@@ -67,6 +67,16 @@ export const getArticle = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      bookmarks {
+        items {
+          id
+          userID
+          articleID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -91,6 +101,70 @@ export const listArticles = /* GraphQL */ `
           id
           name
           description
+          createdAt
+          updatedAt
+        }
+        bookmarks {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getBookmark = /* GraphQL */ `
+  query GetBookmark($id: ID!) {
+    getBookmark(id: $id) {
+      id
+      userID
+      articleID
+      article {
+        id
+        name
+        description
+        url
+        pubDate
+        keyWords
+        feedID
+        feed {
+          id
+          name
+          description
+          createdAt
+          updatedAt
+        }
+        bookmarks {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listBookmarks = /* GraphQL */ `
+  query ListBookmarks(
+    $filter: ModelBookmarkFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBookmarks(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userID
+        articleID
+        article {
+          id
+          name
+          description
+          url
+          pubDate
+          keyWords
+          feedID
           createdAt
           updatedAt
         }

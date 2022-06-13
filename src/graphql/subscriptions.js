@@ -96,6 +96,16 @@ export const onCreateArticle = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      bookmarks {
+        items {
+          id
+          userID
+          articleID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -121,6 +131,16 @@ export const onUpdateArticle = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      bookmarks {
+        items {
+          id
+          userID
+          articleID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -141,6 +161,112 @@ export const onDeleteArticle = /* GraphQL */ `
         name
         description
         articles {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      bookmarks {
+        items {
+          id
+          userID
+          articleID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateBookmark = /* GraphQL */ `
+  subscription OnCreateBookmark {
+    onCreateBookmark {
+      id
+      userID
+      articleID
+      article {
+        id
+        name
+        description
+        url
+        pubDate
+        keyWords
+        feedID
+        feed {
+          id
+          name
+          description
+          createdAt
+          updatedAt
+        }
+        bookmarks {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateBookmark = /* GraphQL */ `
+  subscription OnUpdateBookmark {
+    onUpdateBookmark {
+      id
+      userID
+      articleID
+      article {
+        id
+        name
+        description
+        url
+        pubDate
+        keyWords
+        feedID
+        feed {
+          id
+          name
+          description
+          createdAt
+          updatedAt
+        }
+        bookmarks {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteBookmark = /* GraphQL */ `
+  subscription OnDeleteBookmark {
+    onDeleteBookmark {
+      id
+      userID
+      articleID
+      article {
+        id
+        name
+        description
+        url
+        pubDate
+        keyWords
+        feedID
+        feed {
+          id
+          name
+          description
+          createdAt
+          updatedAt
+        }
+        bookmarks {
           nextToken
         }
         createdAt
