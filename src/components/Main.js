@@ -192,14 +192,15 @@ function bookmarkClick(article){
                     //console.log(articleData.data.getArticle);
                     articleList.push(articleData.data.getArticle);
                 }
-                if (articleList !== []) {
+                //if (articleList !== []) {
                     setArticles(articleList);
                     setActiveArticle(articleList[0].name);
                     document.getElementById('mainframe').src = articleList[0].url;
                     console.log("set initial iframe " + articleList[0].url);
-                }
+                //}
             }
             else {
+                console.log('activeFeed.id', activeFeed.id)
                 const articleData = await API.graphql(graphqlOperation(listArticles, { filter: { feedID: { eq: activeFeed.id } } }));
                 const articleList = articleData.data.listArticles.items;
                 console.log('fetch article list', articleList);
