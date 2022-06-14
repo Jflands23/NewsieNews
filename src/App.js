@@ -73,7 +73,7 @@ function App({signOut, user}) {
     </div>*/
     <div>
     <div><Header /></div>
-    <div><Main /></div>
+    <div><Main   /></div>
     <div><Footer /></div>
     </div>
       

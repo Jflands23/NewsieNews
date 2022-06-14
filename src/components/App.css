@@ -92,7 +92,7 @@
     float:left;
     width:10%;
     background: #001D3D;
-    height: 1100px;
+    height: 1112px;
     margin-top: 5px;
 }
 
@@ -109,7 +109,7 @@
     color:#FFC300;
     margin-top:5px;
     margin-left:5px;
-    height: 1100px;
+    height: 1112px;
     overflow-y: scroll;
 }
 
@@ -118,6 +118,7 @@
     height: 1100px;
     margin-top:5px;
     margin-left:5px;
+    background-color:white;
 }
 
 

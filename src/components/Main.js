@@ -2,15 +2,16 @@ import { API, graphqlOperation } from "aws-amplify"
 import { listFeeds, listArticles, listBookmarks, getArticle } from "../graphql/queries"
 import { useState, useEffect } from 'react'
 import React from 'react';
-import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
-import BookmarkOutlinedIcon from '@material-ui/icons/BookmarkOutlined';
+//import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
+//import BookmarkOutlinedIcon from '@material-ui/icons/BookmarkOutlined';
 import Bookmark from '@material-ui/icons/Bookmark';
 import {Paper,List,ListItem,ListItemText,IconButton, ListItemSecondaryAction } from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import {Auth} from "aws-amplify";
 import { createBookmark as createBookmarkMutation, deleteBookmark as deleteBookmarkMutation } from '../graphql/mutations';
-import Frame from 'react-frame-component'
-import { convertCompilerOptionsFromJson } from "typescript";
+import { render } from "@testing-library/react";
+//import Frame from 'react-frame-component'
+//import { convertCompilerOptionsFromJson } from "typescript";
 
 
 const useStyles = makeStyles({
@@ -47,16 +48,26 @@ const Main = () => {
     const classes = useStyles();
 
 useEffect(() => {
-        onLoad();
+    (async () => {
+        //const user = await onLoad();
+        const user = await Auth.currentUserInfo(); 
+        console.log('after getting user')
+        const userId = user.attributes.sub;
+        setUserID(userId)
+        console.log("userID ", userId);
+    })();
+        return () =>{};
       }, [],);
 
 async function onLoad() {
     try {
             console.log("in on load")
             const user = await Auth.currentUserInfo(); 
+            console.log('after getting user')
             const userId = user.attributes.sub;
-            setUserID(userId);
-            console.log("userID ", userID);
+            //setUserID(userId);
+            //console.log("userID ", userID);
+            return userId
           }
     catch(e) {
     if (e !== 'No current user') {
@@ -73,7 +84,11 @@ async function createBookmark(articleToBookmark,currentuserID) {
             articleID: articleToBookmark.id,
             //article: articleToBookmark,
         }} });
-        bookmarks.push(newBookmark.data.createBookmark);
+        //bookmarks.push(newBookmark.data.createBookmark);
+        //console.log(bookmarks)
+        //setBookmarks(bookmarks);
+        //console.log(bookmarks)
+        return(newBookmark.data.createBookmark)
     }
     catch(error){
         console.log('error on fetching feeds', error);
@@ -82,7 +97,7 @@ async function createBookmark(articleToBookmark,currentuserID) {
 
 async function deleteBookmark(article) {
     try{
-        const bookmarkToDelete = bookmarks.find(bookmark => bookmark.articleID == article.id);
+        const bookmarkToDelete = bookmarks.find(bookmark => bookmark.articleID === article.id);
         const id = bookmarkToDelete.id;
         const newBookmarksArray = bookmarks.filter(bookmark => bookmark.id !== bookmarkToDelete.id);
         console.log(bookmarkToDelete.id)
@@ -105,7 +120,7 @@ function feedClick(feed){
 function isBookmarked(article){
     console.log('is bookmarked?')
     for (var i=0;i<bookmarks.length;i++){
-        if (bookmarks[i].articleID == article.id){
+        if (bookmarks[i].articleID === article.id){
             return true
         }
     }
@@ -122,73 +137,104 @@ function articleClick(article){
 
 function bookmarkClick(article){
     console.log("click bookmark ", userID, article)
-    if(isBookmarked(article) ==true){
+    if(isBookmarked(article) === true){
         console.log('delete bookmark')
         deleteBookmark(article)}
     else{console.log('create bookmark')
-        createBookmark(article,userID)
+        const abm = createBookmark(article,userID)
+        //bookmarks.push(abm);
+        console.log(bookmarks)
+        setBookmarks(bookmarks);
+        console.log(bookmarks)
+        //setBookmarks(fetchBookmarks());
+        console.log('in click',bookmarks)
     }
-    fetchArticles();
+    //fetchArticles();
 }
 
     useEffect(() => {
         fetchFeeds()
     }, []);
 
-    const fetchFeeds = async () => {
+    async function fetchFeeds() {
         try {
             const feedData = await API.graphql(graphqlOperation(listFeeds));
             const feedList = feedData.data.listFeeds.items;
-            console.log('fetch feed list', feedList);
-            const tempFeed = feedList[0];
-            feedList [0] = feedList[1];
-            feedList[1] = tempFeed
+            console.log('fetch feed list', feedList, feedList.length);
+            const tempFeed = feedList[feedList.length -1];
+            feedList[feedList.length -1] = feedList[1];
+            feedList[1] = tempFeed;
             setFeeds(feedList);
-            setActiveFeed(feedList[0])
+            if (activeFeed = []){
+            setActiveFeed(feedList[0]);
+            }
         } catch (error) {
             console.log('error on fetching feeds', error);
         }
-    };
+    }
 
     useEffect(() => {
         fetchArticles()
     }, [activeFeed]);
 
-    const fetchArticles = async () => {
+    async function fetchArticles() {
         try {
-            console.log('fetch articles')
-            const bookmarkData = await API.graphql(graphqlOperation(listBookmarks,{filter:{userID:{eq:userID}}}));
-            const bookmarkList = bookmarkData.data.listBookmarks.items;
-            setBookmarks(bookmarkList);
-            console.log('fetch bookmarks', bookmarks);
-            const articleList = [];
-            if(activeFeed.id == 'bookmarks'){
-                for (var i=0;i<bookmarks.length;i++){
-                    const articleData = await API.graphql(graphqlOperation(getArticle,{id:bookmarks[i].articleID}));
+            console.log('in fetch articles');
+            //const bookmarkData = await API.graphql(graphqlOperation(listBookmarks,{filter:{userID:{eq:userID}}}));
+            //const bookmarkList = bookmarkData.data.listBookmarks.items;
+            //setBookmarks(bookmarkList);
+            //console.log('fetch bookmarks', bookmarks);
+            if (activeFeed.id === 'bookmarks') {
+                const articleList = [];
+                for (var i = 0; i < bookmarks.length; i++) {
+                    const articleData = await API.graphql(graphqlOperation(getArticle, { id: bookmarks[i].articleID }));
                     //const articleList = articleData.data.listArticles.items;
                     //console.log(articleData.data.getArticle);
                     articleList.push(articleData.data.getArticle);
                 }
-                setArticles(articleList);
-                setActiveArticle(articleList[0].name)
-                document.getElementById('mainframe').src=articleList[0].url;
-                console.log("set initial iframe " + articleList[0].url);
+                if (articleList !== []) {
+                    setArticles(articleList);
+                    setActiveArticle(articleList[0].name);
+                    document.getElementById('mainframe').src = articleList[0].url;
+                    console.log("set initial iframe " + articleList[0].url);
+                }
             }
-            else{
-                const articleData = await API.graphql(graphqlOperation(listArticles,{filter:{feedID:{eq:activeFeed.id}}}));
+            else {
+                const articleData = await API.graphql(graphqlOperation(listArticles, { filter: { feedID: { eq: activeFeed.id } } }));
                 const articleList = articleData.data.listArticles.items;
                 console.log('fetch article list', articleList);
                 setArticles(articleList);
-                setActiveArticle(articleList[0].name)
-                document.getElementById('mainframe').src=articleList[0].url;
+                setActiveArticle(articleList[0].name);
+                document.getElementById('mainframe').src = articleList[0].url;
                 console.log("set initial iframe " + articleList[0].url);
-                
+
             }
         } catch (error) {
             console.log('error on fetching articles', error);
         }
-    };
+    }
+
+    useEffect(() => {
+        fetchBookmarks()
+    }, [userID][feeds]);
     
+    async function fetchBookmarks() {
+        console.log(userID);
+        try {
+            console.log('in fetch bookmarks');
+            if (userID === []) { console.log('no user to get bookmarks'); }
+            else {
+                const bookmarkData = await API.graphql(graphqlOperation(listBookmarks, { filter: { userID: { eq: userID } } }));
+                const bookmarkList = bookmarkData.data.listBookmarks.items;
+                setBookmarks(bookmarkList);
+                console.log(bookmarks);
+            }
+        }
+        catch (error) {
+            console.log('error on fetching bookmarks', error);
+        }
+    }
+
     return (
     <div className = "BigDiv">
         <List className = "feedList">
@@ -239,7 +285,7 @@ function bookmarkClick(article){
             })}
         </List>
         </div>
-        <iframe id = 'mainframe' className = "articleView" src={iframeSrc} sandbox='allow-scripts allow-same-origin'></iframe>
+        <iframe id = 'mainframe' className = "articleView" src={iframeSrc} sandbox='allow-scripts allow-same-origin'></iframe>   
     </div>
     )
 }

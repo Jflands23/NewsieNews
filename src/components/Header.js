@@ -9,8 +9,7 @@ const Header = () => {
 			<img class="logo" src="https://www.streamscheme.com/wp-content/uploads/2020/04/pepega.png" width="70" height="75"/>
             <nav>
                 <ul className = "navlink">
-                    <li><a href = "#">Settings</a></li>
-                    <li><a href = "#">Bookmarks</a></li>
+                   
                 </ul>
 			</nav>
             <Authenticator>
